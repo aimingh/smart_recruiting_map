@@ -1,17 +1,29 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from bs4 import BeautifulSoup
 import requests
 from pymongo import MongoClient
 from django.views.decorators.csrf import csrf_exempt
 mountain_url = "https://www.forest.go.kr/kfsweb/kfi/kfs/foreston/main/contents/FmmntSrch/selectFmmntSrchList.do?mntIndex={0}&searchMnt=&searchCnd=&mn=NKFS_03_01_12&orgId=&mntUnit=10"
 header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'} 
+=======
+import folium
+
+>>>>>>> ad7b95ba6b1e7ddf696f03ff40b8907d9df6af6c
 # Create your views here.
 
 def main(requests):
     pass
 
 def mountain_map(requests):
-    pass
+    lat_long = [35.3369, 127.7306]
+    m = folium.Map(lat_long, zoom_start=10)
+    popText = folium.Html('<b>Jirisan</b><br>' + str(lat_long), script=True)
+    popup = folium.Popup(popText, max_width=2650)
+    folium.RegularPolygonMarker(location=lat_long, popup=popup).add_to(m)
+    m = m._repr_html_()
+    datas = {'mountain_map':m}
+    return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
 @csrf_exempt
 def view_info(request):
