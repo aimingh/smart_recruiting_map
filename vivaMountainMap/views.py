@@ -7,3 +7,6 @@ def main(requests):
 
 def mountain_map(requests):
     pass
+
+def info(request):
+    pass
