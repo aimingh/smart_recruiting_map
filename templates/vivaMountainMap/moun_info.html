@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='container'>
+
+<div class='jumbotron' style="margin-top: 10%;"> 
+    <h1>
+        {{mountain.0.name}}
+    </h1>
+    <p>
+        <li>{{mountain.0.info}}</li>
+    </p>
+</div>
+
+
+               
+        <li>{{mountain.0.x}} <span> | </span> {{mountain.0.y}}</li>
+        
+
+
+</div>
+
+{% endblock %}
