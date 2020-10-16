@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from pymongo import MongoClient
+from django.views.decorators.csrf import csrf_exempt
+
 import folium
 
 # Create your views here.
@@ -16,5 +19,7 @@ def mountain_map(requests):
     datas = {'mountain_map':m}
     return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
-def info(request):
+@csrf_exempt
+def view_info(request):
     pass
+
