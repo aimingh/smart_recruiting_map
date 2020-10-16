@@ -27,7 +27,7 @@ class mountainAPI:
             mountainList = mountainList.fillna('')
             self.db.mountainList.insert_many(mountainList.to_dict('records'))
 
-    def get_placeinfo(self):
+    def insert_placeinfo(self):
         mountainList = list(self.db.mountainList.find({},{ "_id": 0, "탐방지": 1}))
         placelist = []
         for mname in mountainList:
@@ -45,7 +45,7 @@ class mountainAPI:
             self.db.placelist.drop()
         self.db.placelist.insert_many(placelist)
 
-    def get_weather(self):
+    def insert_weather(self):
         placelist = list(self.db.placelist.find({},{ "_id": 0, "place_name":1, "x": 1, "y":1}))
         weatherlist = []
         for place in placelist:
@@ -58,7 +58,10 @@ class mountainAPI:
             self.db.weatherlist.drop()
         self.db.weatherlist.insert_many(weatherlist)
 
+    def get_mountinfo(self):
+        pass
+
 if __name__ == "__main__":
     mt = mountainAPI()
-    mt.get_placeinfo()
-    mt.get_weather()
+    mt.insert_placeinfo()
+    mt.insert_weather()
