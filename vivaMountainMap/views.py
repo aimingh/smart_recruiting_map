@@ -14,7 +14,7 @@ def mountain_map(requests):
     folium.RegularPolygonMarker(location=lat_long, popup=popup).add_to(m)
     m = m._repr_html_()
     datas = {'mountain_map':m}
-    return render(requests, 'maps/showmapwithfolium.html', context=datas)
+    return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
 def info(request):
     pass
