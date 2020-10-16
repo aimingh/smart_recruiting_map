@@ -3,11 +3,20 @@
 
 <div class='container'>
 
-    <table>
-        <li>{{mountain.name}}</li>
-        <li>{{mountain.x}} <span> | </span> {{mountain.x}}</li>
-        <li>{{mountain.info}}</li>
-    </table>
+<div class='jumbotron' style="margin-top: 10%;"> 
+    <h1>
+        {{mountain.0.name}}
+    </h1>
+    <p>
+        <li>{{mountain.0.info}}</li>
+    </p>
+</div>
+
+
+               
+        <li>{{mountain.0.x}} <span> | </span> {{mountain.0.y}}</li>
+        
+
 
 </div>
 
