@@ -55,7 +55,7 @@ def ShowSeleniumDB( client ):
         nCount = nCount + 1
 
 
-# work.go.kr 읽어오기
+# jobkorea 읽어오기
 def ReadJOBKOREA():
     # 옵션 주기
     options = webdriver.ChromeOptions()
@@ -73,16 +73,19 @@ def ReadJOBKOREA():
     driver.get("http://www.jobkorea.co.kr/recruit/joblist?menucode=search")
 
     # 회사명 (company name)
-    cp_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[1]/td[1]/a''') ]
-    # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[3]/td[1]/a
+    cp_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr''') ]
+    # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[1]/td[1]/a
+    # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[2]/td[1]/a
 
     # 직업 소개
-    job_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[1]/td[2]/div/strong/a''') ]
-
-    # 상세 주소
-    url_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[1]/td[3]/button/span''') ]
+    job_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr''') ]
     # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[1]/td[2]/div/strong/a
     # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[3]/td[2]/div/strong/a
+
+    # 상세 주소
+    url_list = [ elem.text for elem in driver.find_elements_by_xpath('''//*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr''') ]
+    # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[2]/td[3]/button
+    # //*[@id="dev-gi-list"]/div/div[5]/table/tbody/tr[8]/td[3]/button
 
 
     # 결과 리스트
