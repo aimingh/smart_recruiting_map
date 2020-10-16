@@ -6,7 +6,8 @@ from pymongo import MongoClient
 
 class mountainAPI:
     def __init__(self):
-        self.APPKEY = 'e872972db3d44f41a166d59a90196511'
+        self.KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
+        self.openweather_APPKEY = '62bc63d111fc64124ac69bf2ad6b36f8'
         self.client = MongoClient('mongodb://127.0.0.1:27017') 
         self.db = self.client.Mountain
         self.insert_mountainList()
@@ -28,16 +29,28 @@ class mountainAPI:
 
     def get_placeinfo(self):
         mountainList = list(self.db.mountainList.find({},{ "_id": 0, "탐방지": 1}))
-        df = pd.DataFrame()
+        placelist = []
         for mname in mountainList:
             keyword = quote(mname['탐방지'])
             curl = f"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query={keyword}"
-            headers = {"Authorization" : f"KakaoAK {self.APPKEY}"}
+            headers = {"Authorization" : f"KakaoAK {self.KAKAOAPPKEY}"}
             res = requests.get(curl, headers = headers)
-            result = json.loads(res.text)['documents'][0]
+            documents = json.loads(res.text)['documents']
+            for document in documents:
+                if document['place_name'][-1] in ['산', '봉']:
+                    placelist.append(document)
+                    break
+        if self.db.placelist.count() !=0:
+            self.db.placelist.drop()
+        self.db.placelist.insert_many(placelist)
 
+    def get_weather(self):
+        placelist = list(self.db.mountainList.find({},{ "_id": 0, "place_name":1, "x": 1, "y":1}))
+        for place in placelist:
+            curl = f'api.openweathermap.org/data/2.5/weather?lat={place['x']}&lon={place['y']}&appid={self.openweather_APPKEY}'
+            res = requests.get(curl)
             print()
-
+            
 if __name__ == "__main__":
     mt = mountainAPI()
     mt.get_placeinfo()
