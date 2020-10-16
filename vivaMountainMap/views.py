@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def main(requests):
     pass
+
+def mountain_map(requests):
+    pass
