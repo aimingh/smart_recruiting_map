@@ -15,7 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+TEMPLATES_DIR = [BASE_DIR / 'templates']
+STATICS_DIR = [BASE_DIR / 'static']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -25,12 +26,13 @@ SECRET_KEY = 'omzaeim7!s_33c3popacg&&o==nr)+#k1=+m#bh8!yq*o&py+*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'vivamountain.apps.VivamountainmapConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'smart_recruiting_map.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': TEMPLATES_DIR,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
