@@ -35,22 +35,27 @@ class mountainAPI:
             curl = f"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query={keyword}"
             headers = {"Authorization" : f"KakaoAK {self.KAKAOAPPKEY}"}
             res = requests.get(curl, headers = headers)
-            documents = json.loads(res.text)['documents']
-            for document in documents:
-                if document['place_name'][-1] in ['산', '봉']:
-                    placelist.append(document)
-                    break
+            if res.status_code==200:
+                documents = json.loads(res.text)['documents']
+                for document in documents:
+                    if document['place_name'][-1] in ['산', '봉']:
+                        placelist.append(document)
+                        break
         if self.db.placelist.count() !=0:
             self.db.placelist.drop()
         self.db.placelist.insert_many(placelist)
 
     def get_weather(self):
-        placelist = list(self.db.mountainList.find({},{ "_id": 0, "place_name":1, "x": 1, "y":1}))
+        placelist = list(self.db.placelist.find({},{ "_id": 0, "place_name":1, "x": 1, "y":1}))
+        weatherlist = []
         for place in placelist:
-            curl = f'api.openweathermap.org/data/2.5/weather?lat={place['x']}&lon={place['y']}&appid={self.openweather_APPKEY}'
+            curl = f"http://api.openweathermap.org/data/2.5/weather?lat={place['y']}&lon={place['x']}&appid={self.openweather_APPKEY}"
             res = requests.get(curl)
-            print()
-            
+            if res.status_code==200:
+                document = json.loads(res.text)
+                weatherlist.append(document)
+        self.db.weatherlist.insert_many(weatherlist)
+
 if __name__ == "__main__":
     mt = mountainAPI()
-    mt.get_placeinfo()
+    mt.get_weather()
