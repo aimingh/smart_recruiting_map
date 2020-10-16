@@ -3,3 +3,4 @@ data/.~lock.요구사항분석목록.ods#
 .vscode/*
 */__pycache__/*.pyc
 */*/__pycache__/*.pyc
+data/mt100.xlsx
