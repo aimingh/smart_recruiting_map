@@ -4,7 +4,10 @@ import requests
 
 # Create your views here.
 
-def main(request):
+def main(requests):
+    pass
+
+def mountain_map(requests):
     pass
 
 def info(request):
