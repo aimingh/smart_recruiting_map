@@ -54,8 +54,11 @@ class mountainAPI:
             if res.status_code==200:
                 document = json.loads(res.text)
                 weatherlist.append(document)
+        if self.db.weatherlist.count() !=0:
+            self.db.weatherlist.drop()
         self.db.weatherlist.insert_many(weatherlist)
 
 if __name__ == "__main__":
     mt = mountainAPI()
+    mt.get_placeinfo()
     mt.get_weather()
