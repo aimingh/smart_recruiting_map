@@ -21,5 +21,13 @@ def mountain_map(requests):
 
 @csrf_exempt
 def view_info(request):
-    pass
+    if request.method == 'GET' :
+        name = request.GET.get()
 
+    with MongoClient("mongodb://172.17.0.3:27017") as my_client:
+        data = dict()
+        mountain = list(my_client.my_db.mountain_info.find({'name':name}))
+        data['mountain'] = mountain
+
+        return render(request,'vivaMountainMap/moun_info.html',context=data)
+        
