@@ -2,9 +2,16 @@
 {% block content %}
 
     <div class="container p-3 my-3 border">
-            <h1>Mountain map in Korea</h1>
+            <h1>Mountain map in Korea</h1><br>
             <h5>We show famous mountains in Korea</h5>
     </div>
-    <div class="container">{{mountain_map|safe}}</div>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-8"> -->
+            <div class="col">
+                {{mountain_map|safe}}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
