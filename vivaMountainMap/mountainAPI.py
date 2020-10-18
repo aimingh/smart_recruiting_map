@@ -93,8 +93,11 @@ class mountainAPI:
 
     def get_map(self):
         ''' folium map에 DB정보를 기반으로 marker 추가후 지도 리턴'''
-        lat_long = [36, 127.8]
-        m = folium.Map(lat_long, zoom_start=7)
+        lat_long = [36, 127.4]
+        # m = folium.Map(lat_long, zoom_start=7)
+        # m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
+        m = folium.Map(lat_long, zoom_start=7, tiles='stamentoner')
+
         infolists = self.get_mountinfo()
         for infolist in infolists:
             coord = [infolist['coord']['lat'], infolist['coord']['lon']]
