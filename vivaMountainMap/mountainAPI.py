@@ -77,7 +77,8 @@ class mountainAPI:
         self.db.weatherlist.insert_many(weatherlist)
 
     def get_mountinfo(self):
-        pass
+        infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":{"main":1, "description":1}, "main":{"temp":1}, "coord":1}))
+        return infolists
 
 if __name__ == "__main__":
     print('start')
