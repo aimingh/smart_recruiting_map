@@ -15,7 +15,7 @@ class mountainAPI:
         self.client.close()
 
     def insert_mountainList(self):
-        # 블랙 야크 100대 명산 리스트 url 
+        '''블랙 야크 100대 명산 리스트 다운로드 후 mongodb에 삽입'''
         if os.path.exists('./data/mt100.xlsx') == False:
             print('Download mountainList (mt100.xlsx)')
             url = 'http://bac.blackyak.com/data/mt100.xlsx'
@@ -26,13 +26,14 @@ class mountainAPI:
         mountainList = pd.read_excel('./data/mt100.xlsx', header = 2)
         mountainList = mountainList.fillna('')
         # 예외를 위한 조치
-        mountainList.iloc[60,1] ='오서산'
+        mountainList.iloc[60,1] ='오서산' # 오서산(보령)으로 kako 검색시 오서산 검색 안됨
 
         mountainList = mountainList.rename(columns={'번호':'no', '탐방지':'name', '인증봉우리':'peak' ,'높이(m)':'height', '지역':'area' ,'비고':'remarks'})
         print('Insert mongodb')
         self.db.mountainList.insert_many(mountainList.to_dict('records'))
 
     def insert_placeinfo(self):
+        ''' 명산 리스트의 이름을 이용하여 장소 검색 (kakaoAPI) 후 mongodb 삽입 '''
         mountainList = list(self.db.mountainList.find({},{ "_id": 0, "no":1, "name": 1}))
         placelist = []
         print('Start placeinfo')
@@ -61,6 +62,7 @@ class mountainAPI:
         self.db.placelist.insert_many(placelist)
 
     def insert_weather(self):
+        ''' placeinfo 정보로 기상 정보 openweather API에서 검색 후 mongodb 삽입 '''
         placelist = list(self.db.placelist.find({},{ "_id": 0, "no":1 , "place_name":1, "name":1 , "x": 1, "y":1}))
         weatherlist = []
         print('Start wheather')
@@ -78,11 +80,19 @@ class mountainAPI:
         print('Insert mongodb')
         self.db.weatherlist.insert_many(weatherlist)
 
+    def update_mongodb(self):
+        '''DB update'''
+        self.insert_mountainList()
+        self.insert_placeinfo()
+        self.insert_weather()
+
     def get_mountinfo(self):
+        ''' 지도 mark에 입력할 명산 정보를 database에서 로드 '''
         infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
         return infolists
 
     def get_map(self):
+        ''' folium map에 DB정보를 기반으로 marker 추가후 지도 리턴'''
         lat_long = [36, 127.8]
         m = folium.Map(lat_long, zoom_start=7)
         infolists = self.get_mountinfo()
@@ -105,8 +115,7 @@ class mountainAPI:
         return m
 
 if __name__ == "__main__":
-    print('start')
+    ''' mongodb 업데이트 '''
+    print('start update mongodb')
     mt = mountainAPI()
-    mt.insert_mountainList()
-    mt.insert_placeinfo()
-    mt.insert_weather()
+    mt.update_mongodb()
