@@ -1,5 +1,5 @@
 import pandas as pd
-import requests, wget, os, json
+import requests, wget, os, json, folium
 from urllib.parse import quote
 from pymongo import MongoClient
 
@@ -33,7 +33,7 @@ class mountainAPI:
         self.db.mountainList.insert_many(mountainList.to_dict('records'))
 
     def insert_placeinfo(self):
-        mountainList = list(self.db.mountainList.find({},{ "_id": 0, "name": 1}))
+        mountainList = list(self.db.mountainList.find({},{ "_id": 0, "no":1, "name": 1}))
         placelist = []
         print('Start placeinfo')
         n = 0
@@ -50,6 +50,7 @@ class mountainAPI:
                 for document in documents:
                     if document['place_name'][-1] in ['산', '봉']:
                         document['name'] = mname['name']
+                        document['no'] = mname['no']
                         placelist.append(document)
                         break
             else:
@@ -60,7 +61,7 @@ class mountainAPI:
         self.db.placelist.insert_many(placelist)
 
     def insert_weather(self):
-        placelist = list(self.db.placelist.find({},{ "_id": 0, "place_name":1, "name":1 , "x": 1, "y":1}))
+        placelist = list(self.db.placelist.find({},{ "_id": 0, "no":1 , "place_name":1, "name":1 , "x": 1, "y":1}))
         weatherlist = []
         print('Start wheather')
         for place in placelist:
@@ -69,6 +70,7 @@ class mountainAPI:
             if res.status_code==200:
                 document = json.loads(res.text)
                 document['name'] = place['name']
+                document['no'] = place['no']
                 document['place_name'] = place['place_name']
                 weatherlist.append(document)
         if self.db.weatherlist.count() !=0:
@@ -77,13 +79,34 @@ class mountainAPI:
         self.db.weatherlist.insert_many(weatherlist)
 
     def get_mountinfo(self):
-        infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":{"main":1, "description":1}, "main":{"temp":1}, "coord":1}))
+        infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
         return infolists
+
+    def get_map(self):
+        lat_long = [36, 127.8]
+        m = folium.Map(lat_long, zoom_start=7)
+        infolists = self.get_mountinfo()
+        for infolist in infolists:
+            coord = [infolist['coord']['lat'], infolist['coord']['lon']]
+            info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
+                            좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
+                            날씨: {infolist['weather'][0]['main']}<br>
+                            기온: {infolist['main']['temp']}
+                            '''
+            popText = folium.Html(info_mark, script=True)
+            popup = folium.Popup(popText, max_width=2650)
+            # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
+            # icon =  folium.Icon(icon='mountain', prefix='fa')
+            icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
+            folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
+        # folium 한글 깨짐 현상 발생시 아래 패키지 설치
+        # pip install git+https://github.com/python-visualization/branca.git@master
+        m = m._repr_html_()
+        return m
 
 if __name__ == "__main__":
     print('start')
     mt = mountainAPI()
-    # mt.insert_mountainList()
-    # mt.insert_placeinfo()
-    # mt.insert_weather()
-    mt.get_mountinfo()
+    mt.insert_mountainList()
+    mt.insert_placeinfo()
+    mt.insert_weather()

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 import folium
+from .mountainAPI import mountainAPI
 
 # Create your views here.
 
@@ -11,12 +12,8 @@ def main(requests):
     pass
 
 def mountain_map(requests):
-    lat_long = [35.3369, 127.7306]
-    m = folium.Map(lat_long, zoom_start=10)
-    popText = folium.Html('<b>Jirisan</b><br>' + str(lat_long), script=True)
-    popup = folium.Popup(popText, max_width=2650)
-    folium.RegularPolygonMarker(location=lat_long, popup=popup).add_to(m)
-    m = m._repr_html_()
+    mt = mountainAPI()
+    m = mt.get_map()
     datas = {'mountain_map':m}
     return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
