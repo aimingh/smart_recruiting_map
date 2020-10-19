@@ -102,13 +102,13 @@ class mountainAPI:
             for infolist in infolists:
                 coord = [infolist['coord']['lat'], infolist['coord']['lon']]
                 other_dbname = myclient.my_db.mountain_info.find({"no":infolist["no"]},{"_id":0,"name":1})
+                # a tag target Attribute "https://www.w3schools.com/tags/att_a_target.asp" 참고
                 info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
                                 좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                                 날씨: {infolist['weather'][0]['main']}<br>
                                 기온: {infolist['main']['temp']}<br>
-                                링크 : <a href={"info/"+str(other_dbname[0]['name'])}>마우스 휠로 클릭</a>
+                                링크 : <a href=info/{infolist["name"]} target="_top">마우스 휠로 클릭</a>
                                 '''
-                                       
                 popText = folium.Html(info_mark, script=True)
                 popup = folium.Popup(popText, max_width=2650)
                 # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
