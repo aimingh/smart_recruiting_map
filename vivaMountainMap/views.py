@@ -1,10 +1,14 @@
+
 from django.shortcuts import render
 from pymongo import MongoClient
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from vivaMountainMap.mountainAPI import mountainAPI
 
 import folium
-from .mountainAPI import mountainAPI
+
+url ='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster'
+headers={"X-NCP-APIGW-API-KEY-ID":"pyqaswux4u","X-NCP-APIGW-API-KEY":"BHD3BVoKqXuDP5TFujb0zxJIfeAU5YXy5fpCeSXk"}
 
 # Create your views here.
 
@@ -15,6 +19,7 @@ def mountain_map(requests):
     mt = mountainAPI()
     m = mt.get_map()
     datas = {'mountain_map':m}
+    print('im in')
     return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
 @csrf_exempt
@@ -22,7 +27,7 @@ def view_info(request,name):
     # if request.method == 'GET' :
     #     name = request.GET.get()
 
-    with MongoClient("mongodb://172.17.0.3:27017") as my_client:
+    with MongoClient("mongodb://127.0.0.1:27017") as my_client:
         data = dict()
         mountain = list(my_client.my_db.mountain_info.find({'name':name}))
         data['mountain'] = mountain

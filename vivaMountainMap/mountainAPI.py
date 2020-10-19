@@ -3,7 +3,6 @@ import requests, wget, os, json, folium
 from urllib.parse import quote
 from pymongo import MongoClient
 
-
 class mountainAPI:
     def __init__(self):
         self.KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
@@ -88,7 +87,7 @@ class mountainAPI:
 
     def get_mountinfo(self):
         ''' 지도 mark에 입력할 명산 정보를 database에서 로드 '''
-        infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
+        infolists = list(self.db.weatherlist.find({},{ "_id": 0,"no":1, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
         return infolists
 
     def get_map(self):
@@ -101,10 +100,12 @@ class mountainAPI:
         infolists = self.get_mountinfo()
         for infolist in infolists:
             coord = [infolist['coord']['lat'], infolist['coord']['lon']]
+            # a tag target Attribute "https://www.w3schools.com/tags/att_a_target.asp" 참고
             info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
                             좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                             날씨: {infolist['weather'][0]['main']}<br>
-                            기온: {infolist['main']['temp']}
+                            기온: {infolist['main']['temp']}<br>
+                            링크 : <a href=info/{infolist["name"]} target="_top">마우스 휠로 클릭</a>
                             '''
             popText = folium.Html(info_mark, script=True)
             popup = folium.Popup(popText, max_width=2650)
