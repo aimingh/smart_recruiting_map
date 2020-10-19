@@ -95,7 +95,7 @@ class mountainAPI:
         lat_long = [36, 127.4]
         # m = folium.Map(lat_long, zoom_start=7)
         # m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
-        m = folium.Map(lat_long, zoom_start=7, tiles='stamentoner')
+        m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
 
         infolists = self.get_mountinfo()
         for infolist in infolists:
@@ -105,7 +105,7 @@ class mountainAPI:
                             좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                             날씨: {infolist['weather'][0]['main']}<br>
                             기온: {infolist['main']['temp']}<br>
-                            링크 : <a href=info/{infolist["name"]} target="_top">마우스 휠로 클릭</a>
+                            링크 : <a href=info/{infolist["name"]} target="_top">상세 정보</a>
                             '''
             popText = folium.Html(info_mark, script=True)
             popup = folium.Popup(popText, max_width=2650)
