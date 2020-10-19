@@ -31,6 +31,7 @@ def InsertSeleniumDB( client, dataList ):
     data['JOB'] = dataList[1]
     data['URL'] = dataList[2]
 
+    # data = {"CPNAME":dataList[0],"JOB":dataList[1]}
     db.JOBKOREA.insert(data)
 
 def ShowSeleniumDB( client ):
