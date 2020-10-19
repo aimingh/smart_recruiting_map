@@ -87,7 +87,7 @@ class mountainAPI:
 
     def get_mountinfo(self):
         ''' 지도 mark에 입력할 명산 정보를 database에서 로드 '''
-        infolists = list(self.db.weatherlist.find({},{ "_id": 0, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
+        infolists = list(self.db.weatherlist.find({},{ "_id": 0,"no":1, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
         return infolists
 
     def get_map(self):
@@ -98,19 +98,23 @@ class mountainAPI:
         m = folium.Map(lat_long, zoom_start=7, tiles='stamentoner')
 
         infolists = self.get_mountinfo()
-        for infolist in infolists:
-            coord = [infolist['coord']['lat'], infolist['coord']['lon']]
-            info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
-                            좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
-                            날씨: {infolist['weather'][0]['main']}<br>
-                            기온: {infolist['main']['temp']}
-                            '''
-            popText = folium.Html(info_mark, script=True)
-            popup = folium.Popup(popText, max_width=2650)
-            # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
-            # icon =  folium.Icon(icon='mountain', prefix='fa')
-            icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
-            folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
+        with  MongoClient("mongodb://127.0.0.1:27017") as myclient:
+            for infolist in infolists:
+                coord = [infolist['coord']['lat'], infolist['coord']['lon']]
+                other_dbname = myclient.my_db.mountain_info.find({"no":infolist["no"]},{"_id":0,"name":1})
+                info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
+                                좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
+                                날씨: {infolist['weather'][0]['main']}<br>
+                                기온: {infolist['main']['temp']}<br>
+                                링크 : <a href={"info/"+str(other_dbname[0]['name'])}>정보 보기</a>
+                                '''
+                                
+                popText = folium.Html(info_mark, script=True)
+                popup = folium.Popup(popText, max_width=2650)
+                # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
+                # icon =  folium.Icon(icon='mountain', prefix='fa')
+                icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
+                folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
         # folium 한글 깨짐 현상 발생시 아래 패키지 설치
         # pip install git+https://github.com/python-visualization/branca.git@master
         m = m._repr_html_()

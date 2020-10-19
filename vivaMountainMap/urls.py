@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+app_name = 'mountain'
+
 urlpatterns = [
     path('', views.main,name='main'),
-    path('info/<str:name>', views.view_info, name ='info'),
+    path('mountain_map/info/<str:name>', views.view_info, name ='info'),
     path('mountain_map/', views.mountain_map, name ='mountain_map')
 ]

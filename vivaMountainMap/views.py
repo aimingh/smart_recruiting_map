@@ -1,9 +1,9 @@
-from . import mountainAPI
+
 from django.shortcuts import render
 from pymongo import MongoClient
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-
+from vivaMountainMap.mountainAPI import mountainAPI
 import folium
 
 
@@ -13,9 +13,10 @@ def main(requests):
     pass
 
 def mountain_map(requests):
-    #mt = mountainAPI.mountainAPI()
-    #m = mt.get_map()
+    mt = mountainAPI()
+    m = mt.get_map()
     datas = {'mountain_map':m}
+    print('im in')
     return render(requests, 'vivaMountainMap/mountain_map.html', context=datas)
 
 @csrf_exempt

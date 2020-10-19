@@ -11,10 +11,14 @@ header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM
 res = requests.get(url=mountain_url,headers=header)
 soup = BeautifulSoup(res.content,features='lxml')    
 div_point = soup.find_all('div',{'class':'text'})
+
 with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
+    my_client.my_db.mountain_info.drop()
+    id = 1
     for point in div_point:
         # get mountain name,cordinate,link from ajax page 
         p = point.find_all('a')
+
         name = p[0].text[1:]
         link = link = p[0].attrs['href']
         (x,y) = p[1].text.split(",")
@@ -24,4 +28,5 @@ with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
         soup_link = BeautifulSoup(res_link.content,features='lxml')
         div_info = soup_link.find('div',{'class':'mgb20'})
         info_text = str(div_info.p.text).replace('\t','').replace('\r','').replace('\n','') 
-        my_client.my_db.mountain_info.insert_one({'name':name,'info':info_text,'x':x,'y':y})
+        my_client.my_db.mountain_info.insert_one({'no':id,'name':name,'info':info_text,'x':x,'y':y})
+        id+=1
