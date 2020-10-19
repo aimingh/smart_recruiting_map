@@ -11,7 +11,7 @@ header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM
 res = requests.get(url=mountain_url,headers=header)
 soup = BeautifulSoup(res.content,features='lxml')    
 div_point = soup.find_all('div',{'class':'text'})
-with  MongoClient("mongodb://172.17.0.3:27017") as my_client:
+with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
     for point in div_point:
         # get mountain name,cordinate,link from ajax page 
         p = point.find_all('a')

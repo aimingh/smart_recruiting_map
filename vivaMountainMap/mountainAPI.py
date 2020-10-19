@@ -3,7 +3,6 @@ import requests, wget, os, json, folium
 from urllib.parse import quote
 from pymongo import MongoClient
 
-
 class mountainAPI:
     def __init__(self):
         self.KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
