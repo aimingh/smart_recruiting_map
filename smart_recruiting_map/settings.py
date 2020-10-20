@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vivaMountainMap.apps.VivamountainmapConfig',
     'home.apps.HomeConfig',
+    'jobMap.apps.JobmapConfig',
 ]
 
 MIDDLEWARE = [
