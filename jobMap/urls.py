@@ -19,5 +19,4 @@ from jobMap import views as jobMapview
 
 urlpatterns = [
     path("listwithmongowithpaginator/", jobMapview.listwithmongowithpaginator),
-    # path("listwithmongowithpaginator/link", jobMapview.listwithmongowithpaginator),
 ]
