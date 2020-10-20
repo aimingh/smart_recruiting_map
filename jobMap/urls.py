@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('job_map_search/', views.job_map_search, name ='job_map_search'),
+    path("listwithmongowithpaginator/", views.listwithmongowithpaginator),
 ]
