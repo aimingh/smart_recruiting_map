@@ -16,7 +16,7 @@ soup = BeautifulSoup(res.content,features='lxml')
 div_point = soup.find_all('div',{'class':'text'})
 
 with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
-    my_client.my_db.mountain_info.drop()
+    my_client.Mountain.mountain_info.drop()
     id = 1
     for point in div_point:
         # get mountain name,cordinate,link from ajax page 
@@ -36,7 +36,7 @@ with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
         soup_link = BeautifulSoup(res_link.content,features='lxml')
         div_info = soup_link.find('div',{'class':'mgb20'})
         info_text = str(div_info.p.text).replace('\t','').replace('\r','').replace('\n','') 
-        my_client.my_db.mountain_info.insert_one({'no':id,'name':name,'img':img_link,'info':info_text,'x':x,'y':y})
+        my_client.Mountain.mountain_info.insert_one({'no':id,'name':name,'img':img_link,'info':info_text,'x':x,'y':y})
         id+=1
         print(id)
 

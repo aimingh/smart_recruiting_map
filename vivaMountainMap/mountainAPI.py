@@ -105,12 +105,12 @@ class mountainAPI:
                             좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                             날씨: {infolist['weather'][0]['main']}<br>
                             기온: {infolist['main']['temp']}<br>
-                            링크 : <a href=info/{infolist["name"]} target="_top">상세 정보</a>
+                            링크 : <a href=info/{infolist["no"]} target="_top">상세 정보</a>
                             '''
             popText = folium.Html(info_mark, script=True)
             popup = folium.Popup(popText, max_width=2650)
             # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
-            # icon =  folium.Icon(icon='mountain', prefix='fa')
+            # icon =  folium.Icon(icon='mountain', prefix='fa') 
             icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
             folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
         # folium 한글 깨짐 현상 발생시 아래 패키지 설치
