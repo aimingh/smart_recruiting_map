@@ -10,6 +10,8 @@ from pymongo import MongoClient
 
 header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36'}
 
+# 이거 안되니까 포기함
+
  # 옵션 주기
 def close_tab(driver):
     if len(driver.window_handles) >= 3 :
@@ -29,7 +31,7 @@ def read_data(driver):
     table = driver.find_elements_by_css_selector('#dev-gi-list > div > div.tplList.tplJobList > table > tbody > tr')
     data = list()
     for tr in table:     
-        time.sleep(random.uniform(0.5,1.2))   
+        time.sleep(random.uniform(2,10))   
         company_link = tr.find_element_by_css_selector('td.tplCo > a')
         title = tr.find_element_by_css_selector('td.tplTit > div > strong > a').text
         company = company_link.text
@@ -43,7 +45,7 @@ def read_data(driver):
         for th in address_table :
             #print(th.text)
             if th.text == "주소 " or th.text =='주소':
-                address = th.parent.find('div',{'class':'value'}).text
+                address = th.nextSibling.nextSibling.find('div',{'class':'value'}).text
             
         #time.sleep(random.randint(1,2))
         data.append({'company':company,'address':address,'title':title,'work':work_content})
@@ -79,15 +81,17 @@ def read_jobkorea():
                 myclient.Jobdata.Joblist.drop()
             site_page = driver.find_elements_by_css_selector('#dvGIPaging > div > ul > li')
             next_page = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
-            data = read_data(driver)
+            #data = read_data(driver)
             #print(data)
-            myclient.Jobdata.Joblist.insert_many(data)
+            #myclient.Jobdata.Joblist.insert_many(data)
             for li in site_page[1:]:
-                next_link = li.find_element_by_tag_name('a')   
+                next_link = li.find_element_by_tag_name('a')
+                url_temp = li.find_element_by_tag_name('a').get_attribute('href')
                 time.sleep(random.uniform(5,10))
                 next_link.click()
-                data = read_data(driver)
-                myclient.Jobdata.Joblist.insert_many(data)
+                driver.get(url=url_temp)
+                #data = read_data(driver)
+                #myclient.Jobdata.Joblist.insert_many(data)
                 #print(data)
             site_page.click()
             i+=1
