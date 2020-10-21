@@ -60,18 +60,18 @@
             <!-- <div class="col-8"> -->
             <div class="col">
                 <div class="container">
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
                             <tr>
                                 <th>company</th>
                                 <th>title</th>
                                 <th>address</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="example-table-1">
                             {% for row in page_obj %}
-                            <tr>
-                                <td><a href={{row.link}} style="color:black">{{row.company}}</a></td>
+                            <tr name="link" value="{{row.link}}">
+                                <td>{{row.company}}</td>
                                 <td>{{row.title}}</td>
                                 <td>{{row.address}}</td>
                             </tr>
@@ -85,4 +85,18 @@
         </div>
     </div>
 
+<script>
+// 테이블의 행을 눌러서 실행
+$("#example-table-1 tr").click(function(){ 	
+    var str = ""
+    var tdArr = new Array();	// 배열 선언
+    var tr = $(this);
+    var td = tr.children();
+    td.each(function(i){
+        tdArr.push(td.eq(i).text());
+    });
+    console.log(tr[0].getAttribute('value'))
+    location.href=tr[0].getAttribute('value');
+});
+</script>
 {% endblock %}
