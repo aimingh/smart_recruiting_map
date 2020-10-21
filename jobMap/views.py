@@ -15,6 +15,16 @@ def job_map_search(requests):
     datas = {'mountain_map':m}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
+def job_map_search_cluster(requests):
+    if len(requests.GET) !=0:
+        keyword = requests.GET['key']
+    else:
+        keyword = 'AI'
+    job = jobAPI()
+    m = job.get_searchmap_cluster(keyword)
+    datas = {'mountain_map':m}
+    return render(requests, 'jobMap/job_map_search.html', context=datas)
+
 def listwithmongowithpaginator(request):
     data = request.GET.copy()
     with MongoClient('mongodb://127.0.0.1:27017/')  as client:

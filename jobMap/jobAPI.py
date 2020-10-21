@@ -3,6 +3,7 @@ import requests, wget, os, json, folium, datetime
 from urllib.parse import quote
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
+from folium import plugins
 
 class jobAPI:
     def __init__(self):
@@ -71,6 +72,28 @@ class jobAPI:
             folium.Marker(location=coord, popup=popup, icon=icon).add_to(m)
         m = m._repr_html_()
         return m
+
+    def get_searchmap_cluster(self, keyword = 'AI'):
+        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
+        infolists = list(self.db.Joblist2.find())
+
+        lat_long = [36, 127.4]
+        m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
+
+        marker_cluster = plugins.MarkerCluster().add_to(m)
+        for infolist in infolists:
+            coord = [float(infolist['y']), float(infolist['x'])]
+            info_mark = f'''<a href="{infolist["link"]}" target="_top"><b>{infolist["title"]}</b></a><br>
+                            회사이름: {infolist['company']}<br>
+                            '''
+            popText = folium.Html(info_mark, script=True)
+            popup = folium.Popup(popText, max_width=2650)
+            icon =  folium.Icon(icon='building', prefix='fa') 
+            folium.Marker(location=coord, popup=popup, icon=icon,).add_to(marker_cluster)
+        m = m._repr_html_()
+        return m
+
+
 
 
 
