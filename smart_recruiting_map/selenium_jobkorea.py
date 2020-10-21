@@ -64,7 +64,7 @@ def read_jobkorea():
     options.add_argument("disable-gpu")
 
     # 드라이버 불러오기
-    path = '/home/sanghoon/Documents/Develop/chromedriver'
+    # path = '/home/sanghoon/Documents/Develop/chromedriver'
     #path for cho 
     cho_path = '/home/cho/Documents/Develop/web_config/driver/chromedriver_linux'
 
@@ -80,8 +80,13 @@ def read_jobkorea():
             if myclient.Jobdata.Joblist.count()!=0:
                 myclient.Jobdata.Joblist.drop()
             site_page = driver.find_elements_by_css_selector('#dvGIPaging > div > ul > li')
+<<<<<<< HEAD
             next_page = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
             #data = read_data(driver)
+=======
+            _ = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
+            data = read_data(driver)
+>>>>>>> ab118f88f0b9c1377fbee80123eabf9d398c964a
             #print(data)
             #myclient.Jobdata.Joblist.insert_many(data)
             for li in site_page[1:]:

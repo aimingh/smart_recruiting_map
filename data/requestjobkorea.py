@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 import time
 from urllib.parse import quote
+
 header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36'}
 url_true='http://www.jobkorea.co.kr/recruit/joblist?menucode=cotype1&cotype=1,2,3,4,5?Page='
 i = 1
@@ -33,8 +34,8 @@ with MongoClient("mongodb://127.0.0.1:27017") as my_client:
                 address = "홈페이지 지원"      
             print(name,title,address,link)
             time.sleep(0.4)
+            my_client.my_db.job_list.insert_one({"company":name,"title":title,"address":address,"link":link})
 
         i = i+1
         
-            #my_client.my_db.job_list.insert_one({"company":name,"title":title,"address":address,"link":link})
 

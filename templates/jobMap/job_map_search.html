@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container p-3 my-3 border">
+            <h1>Job map in Jobkorea</h1><br>
+            <h5>We show Recruiting Map for jobseeker</h5>
+            <form action="", method="get">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>    
+                            <th>Career Type: 
+                                {% if data.careerType == '1' %}
+                                    신입
+                                {% elif data.careerType == '2' %}
+                                    경력
+                                {% elif data.careerType == '3' %}
+                                    신입+경력
+                                {% elif data.careerType == '4' %}
+                                    경력무관
+                                {% else %}
+                                    전체
+                                {% endif %}
+                            </th>
+                            <th>Current Keyword: {{data.keyword}}</th>
+                            <th>Max Page: {{data.max_page}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <div class="input-group mb-3">
+                            <td>
+                                <!-- <label for="sel1">Select list:</label> -->
+                                <select class="form-control" id="sel1", name="careerType">
+                                    <option value="">전체</option>
+                                    <option value="1">신입</option>
+                                    <option value="2">경력</option>
+                                    <option value="3">신입+경력</option>
+                                    <option value="4">경력무관</option>
+                                </div>
+                            </td>
+                            <td><input type="text" class="form-control" placeholder="job keyword", name="key"></td>
+                            <td><input type="text" class="form-control" placeholder="max page", name="max_page"></td>
+                            <td><input type="submit" class="btn btn-dark", value="Submit"></td>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <p></p>
+            <div class="btn-group">
+                <a href="{% url 'job:job_map_search' %}" class="btn btn-outline-primary" role="button">Basic Map</a>
+                <a href="{% url 'job:job_map_search_cluster' %}" class="btn btn-outline-info" role="button">Clustering Map</a>
+                <a href="{% url 'job:job_map_search_heat' %}" class="btn btn-outline-danger" role="button">Heat Map</a>
+            </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-8"> -->
+            <div class="col">
+                {{mountain_map|safe}}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
