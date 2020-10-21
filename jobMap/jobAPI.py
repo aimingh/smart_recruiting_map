@@ -192,4 +192,4 @@ if __name__ == "__main__":
     print('start update mongodb')
     jm = jobAPI()
     # jm.update_mongodb()
-    jm.scrapping_jobkorea_search()
+    #jm.scrapping_jobkorea_search()

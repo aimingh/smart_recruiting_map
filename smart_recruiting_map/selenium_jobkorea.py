@@ -80,13 +80,8 @@ def read_jobkorea():
             if myclient.Jobdata.Joblist.count()!=0:
                 myclient.Jobdata.Joblist.drop()
             site_page = driver.find_elements_by_css_selector('#dvGIPaging > div > ul > li')
-<<<<<<< HEAD
-            next_page = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
-            #data = read_data(driver)
-=======
             _ = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
-            data = read_data(driver)
->>>>>>> ab118f88f0b9c1377fbee80123eabf9d398c964a
+            _ = read_data(driver)
             #print(data)
             #myclient.Jobdata.Joblist.insert_many(data)
             for li in site_page[1:]:
