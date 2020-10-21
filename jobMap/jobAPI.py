@@ -93,6 +93,21 @@ class jobAPI:
         m = m._repr_html_()
         return m
 
+    def get_searchmap_heat(self, keyword = 'AI'):
+        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
+        infolists = list(self.db.Joblist2.find())
+
+        lat_long = [36, 127.4]
+        m = folium.Map(lat_long, zoom_start=7, tiles='stamentoner')
+
+        data = []
+        for infolist in infolists:
+            data.append([float(infolist['y']), float(infolist['x'])])
+
+        plugins.HeatMap(data).add_to(m)
+        m = m._repr_html_()
+        return m
+
 
 
 
