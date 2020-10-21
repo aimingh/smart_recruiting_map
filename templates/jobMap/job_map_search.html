@@ -5,11 +5,10 @@
             <h1>Job map in Jobkorea</h1><br>
             <h5>We show Recruiting Map for jobseeker</h5>
             <form action="", method="get">
-                <table>
-                    <thead>
+                <table class="table">
+                    <thead class="thead-dark">
                         <tr>    
-                            
-                            <td>Career Type: 
+                            <th>Career Type: 
                                 {% if data.careerType == '1' %}
                                     신입
                                 {% elif data.careerType == '2' %}
@@ -21,13 +20,10 @@
                                 {% else %}
                                     전체
                                 {% endif %}
-                            </td>
-                            <td>Current Keyword: {{data.keyword}}</td>
-                            <td>Max Page: {{data.max_page}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            </th>
+                            <th>Current Keyword: {{data.keyword}}</th>
+                            <th>Max Page: {{data.max_page}}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,15 +44,14 @@
                             <td><input type="submit" class="btn btn-dark", value="Submit"></td>
                             </div>
                         </tr>
-
                     </tbody>
                 </table>
             </form>
-            <tr><p></p></tr>
+            <p></p>
             <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary"><a href="{% url 'job:job_map_search' %}">Basic Map</a></button>
-                <button type="button" class="btn btn-outline-info"><a href="{% url 'job:job_map_search_cluster' %}">Clustering Map</a></button>
-                <button type="button" class="btn btn-outline-danger"><a href="{% url 'job:job_map_search_heat' %}">Heat Map</a></button>
+                <a href="{% url 'job:job_map_search' %}" class="btn btn-outline-primary" role="button">Basic Map</a>
+                <a href="{% url 'job:job_map_search_cluster' %}" class="btn btn-outline-info" role="button">Clustering Map</a>
+                <a href="{% url 'job:job_map_search_heat' %}" class="btn btn-outline-danger" role="button">Heat Map</a>
             </div>
     </div>
     <div class="container">
@@ -67,8 +62,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 {% endblock %}
