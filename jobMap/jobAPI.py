@@ -16,11 +16,11 @@ class jobAPI:
         self.client.close()
 
     # jobkorea scrapping using searching keyword    
-    def scrapping_jobkorea_search(self, max_page='10', keyword='AI'):
+    def scrapping_jobkorea_search(self, searchdata):
         if self.db.Joblist2.count()!=0:
             self.db.Joblist2.drop()
-        for page in range(int(max_page)):
-            res = requests.get(f'http://www.jobkorea.co.kr/Search/?stext={keyword}&tabType=recruit&Page_No={page}')
+        for page in range(1,int(searchdata['max_page']+1)):
+            res = requests.get(f'''http://www.jobkorea.co.kr/Search/?stext={searchdata['keyword']}&tabType=recruit&careerType={searchdata['careerType']}&Page_No={page}''')
             if res.status_code == 200:
                 soup = BeautifulSoup(res.content, 'lxml')
                 links = soup.find_all('a', class_='title dev_view')
@@ -58,7 +58,7 @@ class jobAPI:
 
     def get_searchmap(self, data):
         if data['flag']==True:
-            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            self.scrapping_jobkorea_search(data)
             if self.db.keyword.count()!=0:
                 self.db.keyword.drop()
             self.db.keyword.insert_one(data)
@@ -81,7 +81,7 @@ class jobAPI:
 
     def get_searchmap_cluster(self, data):
         if data['flag']==True:
-            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            self.scrapping_jobkorea_search(data)
             if self.db.keyword.count()!=0:
                 self.db.keyword.drop()
             self.db.keyword.insert_one(data)
@@ -105,7 +105,7 @@ class jobAPI:
 
     def get_searchmap_heat(self, data):
         if data['flag']==True:
-            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            self.scrapping_jobkorea_search(data)
             if self.db.keyword.count()!=0:
                 self.db.keyword.drop()
             self.db.keyword.insert_one(data)
