@@ -51,7 +51,7 @@ class jobAPI:
             return None
 
     def get_searchmap(self, keyword = 'AI'):
-        self.scrapping_jobkorea_search(max_page=5, keyword=keyword)
+        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
@@ -59,7 +59,7 @@ class jobAPI:
 
         for infolist in infolists:
             coord = [float(infolist['y']), float(infolist['x'])]
-            info_mark = f'''<b>{infolist["title"]}</b><br>
+            info_mark = f'''<a href="{infolist["link"]}" target="_top"><b>{infolist["title"]}</b></a><br>
                             회사이름: {infolist['company']}<br>
                             '''
             popText = folium.Html(info_mark, script=True)
@@ -128,7 +128,7 @@ class jobAPI:
         infolists = list(self.db.placelist.find())
         for infolist in infolists:
             coord = [float(infolist['y']), float(infolist['x'])]
-            info_mark = f'''<b>{infolist["title"]}</b><br>
+            info_mark = f'''<a href='"{infolist["link"]}"'><b>{infolist["title"]}</b></a><br>
                             회사이름: {infolist['company']}<br>
                             '''
             popText = folium.Html(info_mark, script=True)
