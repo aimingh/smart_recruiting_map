@@ -8,30 +8,36 @@ from django.core.paginator import Paginator
 def job_map_search(requests):
     if len(requests.GET) !=0:
         keyword = requests.GET['key']
+        max_page = requests.GET['max_page']
     else:
         keyword = 'AI'
+        max_page = '10'
     job = jobAPI()
-    m = job.get_searchmap(keyword)
+    m = job.get_searchmap(keyword, max_page=max_page)
     datas = {'mountain_map':m}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_cluster(requests):
     if len(requests.GET) !=0:
         keyword = requests.GET['key']
+        max_page = requests.GET['max_page']
     else:
         keyword = 'AI'
+        max_page = '10'
     job = jobAPI()
-    m = job.get_searchmap_cluster(keyword)
+    m = job.get_searchmap_cluster(keyword, max_page=max_page)
     datas = {'mountain_map':m}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_heat(requests):
     if len(requests.GET) !=0:
         keyword = requests.GET['key']
+        max_page = requests.GET['max_page']
     else:
         keyword = 'AI'
+        max_page = '10'
     job = jobAPI()
-    m = job.get_searchmap_heat(keyword)
+    m = job.get_searchmap_heat(keyword, max_page=max_page)
     datas = {'mountain_map':m}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 

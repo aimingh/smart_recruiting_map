@@ -15,11 +15,11 @@ class jobAPI:
     def __del__(self):
         self.client.close()
         
-    def scrapping_jobkorea_search(self, max_page=10, keyword='AI'):
+    def scrapping_jobkorea_search(self, max_page='10', keyword='AI'):
         if self.db.Joblist2.count()!=0:
             self.db.Joblist2.drop()
-        for page in range(max_page):
-            res = requests.get(f'http://www.jobkorea.co.kr/Search/?stext={keyword}&tabType=recruit&Page_No={str(page)}')
+        for page in range(int(max_page)):
+            res = requests.get(f'http://www.jobkorea.co.kr/Search/?stext={keyword}&tabType=recruit&Page_No={page}')
             if res.status_code == 200:
                 soup = BeautifulSoup(res.content, 'lxml')
                 links = soup.find_all('a', class_='title dev_view')
@@ -54,8 +54,8 @@ class jobAPI:
         else:
             return None, None, None
 
-    def get_searchmap(self, keyword = 'AI'):
-        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
+    def get_searchmap(self, keyword = 'AI', max_page='10'):
+        self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
@@ -73,8 +73,8 @@ class jobAPI:
         m = m._repr_html_()
         return m
 
-    def get_searchmap_cluster(self, keyword = 'AI'):
-        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
+    def get_searchmap_cluster(self, keyword = 'AI', max_page='10'):
+        self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
@@ -93,8 +93,8 @@ class jobAPI:
         m = m._repr_html_()
         return m
 
-    def get_searchmap_heat(self, keyword = 'AI'):
-        self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
+    def get_searchmap_heat(self, keyword = 'AI', max_page='10'):
+        self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
