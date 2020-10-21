@@ -88,6 +88,9 @@ class mountainAPI:
     def get_mountinfo(self):
         ''' 지도 mark에 입력할 명산 정보를 database에서 로드 '''
         infolists = list(self.db.weatherlist.find({},{ "_id": 0,"no":1, "place_name":1, "name":1, "weather":1, "main":{"temp":1}, "coord":1}))
+        link = list(self.db.mountain_info.find({},{"_id": 0, 'img':1}))
+        for i in range(len(link)):
+            infolists[i]['img']=link[i]['img']
         return infolists
 
     def get_map(self):
@@ -101,12 +104,13 @@ class mountainAPI:
         for infolist in infolists:
             coord = [infolist['coord']['lat'], infolist['coord']['lon']]
             # a tag target Attribute "https://www.w3schools.com/tags/att_a_target.asp" 참고
-            info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
+            info_mark = f'''<a href=info/{infolist["no"]} target="_top"><b>산이름: {infolist["name"]}</b></a><br>
                             좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                             날씨: {infolist['weather'][0]['main']}<br>
                             기온: {infolist['main']['temp']}<br>
-                            링크 : <a href=info/{infolist["no"]} target="_top">상세 정보</a>
+                            <img src="{infolist['img']}" alt="{infolist['name']}"  height="64">
                             '''
+                            # 링크 : <a href=info/{infolist["no"]} target="_top">상세 정보</a>
             popText = folium.Html(info_mark, script=True)
             popup = folium.Popup(popText, max_width=2650)
             # fontawsome에서 버전 4까지만 사용된다는 말이 있음, mountain은 나중에 추가됨
@@ -117,9 +121,27 @@ class mountainAPI:
         # pip install git+https://github.com/python-visualization/branca.git@master
         m = m._repr_html_()
         return m
+    
+    def get_one_map(self, no):
+        infolists = self.get_mountinfo()
+        infolist = infolists[no-1]
+        coord = [infolist['coord']['lat'], infolist['coord']['lon']]
+        m = folium.Map(coord, zoom_start=10, tiles='stamenterrain')
+        info_mark = f'''<a href=info/{infolist["no"]} target="_top"><b>산이름: {infolist["name"]}</b></a><br>
+                        좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
+                        날씨: {infolist['weather'][0]['main']}<br>
+                        기온: {infolist['main']['temp']}<br>
+                        <img src="{infolist['img']}" alt="{infolist['name']}"  height="64">
+                        '''
+        popText = folium.Html(info_mark, script=True)
+        popup = folium.Popup(popText, max_width=2650)
+        icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
+        folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
+        m = m._repr_html_()
+        return m
 
 if __name__ == "__main__":
     ''' mongodb 업데이트 '''
     print('start update mongodb')
     mt = mountainAPI()
-    mt.update_mongodb()
+    # mt.update_mongodb()
