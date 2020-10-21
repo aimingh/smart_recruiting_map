@@ -10,7 +10,7 @@ class jobAPI:
         KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
         self.headers = {"Authorization" : f"KakaoAK {KAKAOAPPKEY}"}
         # self.client = MongoClient('mongodb://127.0.0.1:27017') # localhost
-        self.client = MongoClient('mongodb://182.217.110.148:27017') #
+        self.client = MongoClient('mongodb://192.168.0.225:27017')
         self.db = self.client.Jobdata
 
     def __del__(self):
