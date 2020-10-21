@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from jobMap import views as jobMapview
+from . import views
 
 urlpatterns = [
-    path("listwithmongowithpaginator/", jobMapview.listwithmongowithpaginator),
+    path('job_map_search/', views.job_map_search, name ='job_map_search'),
+    path("listwithmongowithpaginator/", views.listwithmongowithpaginator),
 ]
