@@ -18,7 +18,7 @@
     {% endif %}
     <!-- 페이지리스트 -->
     {% for page_number in page_obj.0.paginator.page_range %}
-        {% if page_number >= minpage.0 and page_number <= maxpage.0 %}
+        {% if page_number >= 1 and page_number <= 10 %}
             {% if page_number == page_obj.0.number %}
             <li class="page-item active" aria-current="page">
                 <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
