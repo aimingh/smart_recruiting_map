@@ -59,7 +59,28 @@
         <div class="row">
             <!-- <div class="col-8"> -->
             <div class="col">
-                {{mountain_map|safe}}
+                <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>company</th>
+                                <th>title</th>
+                                <th>address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in page_obj %}
+                            <tr>
+                                <td><a href={{row.link}} style="color:black">{{row.company}}</a></td>
+                                <td>{{row.title}}</td>
+                                <td>{{row.address}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                
+                    {% include 'paginator.html' %}
+                </div>
             </div>
         </div>
     </div>
