@@ -4,41 +4,36 @@ from pymongo import MongoClient
 from django.core.paginator import Paginator
 
 # Create your views here.
-
-def job_map_search(requests):
+def get_form(requests):
     if len(requests.GET) !=0:
         keyword = requests.GET['key']
         max_page = requests.GET['max_page']
+        flag = True
     else:
         keyword = 'AI'
         max_page = '10'
+        flag = False
+    return keyword, max_page, flag
+
+def job_map_search(requests):
+    keyword, max_page, flag = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap(keyword, max_page=max_page)
-    datas = {'mountain_map':m}
+    m = job.get_searchmap(keyword=keyword, max_page=max_page, search_flag=flag)
+    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_cluster(requests):
-    if len(requests.GET) !=0:
-        keyword = requests.GET['key']
-        max_page = requests.GET['max_page']
-    else:
-        keyword = 'AI'
-        max_page = '10'
+    keyword, max_page, flag = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap_cluster(keyword, max_page=max_page)
-    datas = {'mountain_map':m}
+    m = job.get_searchmap_cluster(keyword=keyword, max_page=max_page, search_flag=flag)
+    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_heat(requests):
-    if len(requests.GET) !=0:
-        keyword = requests.GET['key']
-        max_page = requests.GET['max_page']
-    else:
-        keyword = 'AI'
-        max_page = '10'
+    keyword, max_page, flag = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap_heat(keyword, max_page=max_page)
-    datas = {'mountain_map':m}
+    m = job.get_searchmap_heat(keyword=keyword, max_page=max_page, search_flag=flag)
+    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def listwithmongowithpaginator(request):
