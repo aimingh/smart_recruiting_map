@@ -41,8 +41,8 @@ def job_map_search_heat(requests):
 def listwithmongowithpaginator(request):
     data = request.GET.copy()
     with MongoClient('mongodb://127.0.0.1:27017/')  as client:
-        my_db = client.my_db
-        contact_list = list(my_db.job_list.find())			# get Collection with find()
+        Jobdata = client.Jobdata
+        contact_list = list(Jobdata.Joblist2.find())			# get Collection with find()
         data['page_obj'] = contact_list
         for info in contact_list:
             print(info)
