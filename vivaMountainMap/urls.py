@@ -20,7 +20,6 @@ from . import views
 app_name = 'mountain'
 
 urlpatterns = [
-    path('', views.main,name='main'),
     path('mountain_map/info/<int:no>', views.view_info, name ='info'),
     path('mountain_map/', views.mountain_map, name ='mountain_map')
 ]
