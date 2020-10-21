@@ -8,8 +8,22 @@
                 <table>
                     <thead>
                         <tr>    
-                            <td>current keyword: {{keyword}}</td>
-                            <td>max page: {{max_page}}</td>
+                            
+                            <td>Career Type: 
+                                {% if data.careerType == '1' %}
+                                    신입
+                                {% elif data.careerType == '2' %}
+                                    경력
+                                {% elif data.careerType == '3' %}
+                                    신입+경력
+                                {% elif data.careerType == '4' %}
+                                    경력무관
+                                {% else %}
+                                    전체
+                                {% endif %}
+                            </td>
+                            <td>Current Keyword: {{data.keyword}}</td>
+                            <td>Max Page: {{data.max_page}}</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -19,6 +33,16 @@
                     <tbody>
                         <tr>
                             <div class="input-group mb-3">
+                            <td>
+                                <!-- <label for="sel1">Select list:</label> -->
+                                <select class="form-control" id="sel1", name="careerType">
+                                    <option value="">전체</option>
+                                    <option value="1">신입</option>
+                                    <option value="2">경력</option>
+                                    <option value="3">신입+경력</option>
+                                    <option value="4">경력무관</option>
+                                </div>
+                            </td>
                             <td><input type="text" class="form-control" placeholder="job keyword", name="key"></td>
                             <td><input type="text" class="form-control" placeholder="max page", name="max_page"></td>
                             <td><input type="submit" class="btn btn-dark", value="Submit"></td>
@@ -29,13 +53,11 @@
                 </table>
             </form>
             <tr><p></p></tr>
-            <table>
-                <tr>
-                    <td><button type="button" class="btn btn-outline-primary"><a href="{% url 'job:job_map_search' %}">Basic Map</a></button></td>
-                    <td><button type="button" class="btn btn-outline-info"><a href="{% url 'job:job_map_search_cluster' %}">Clustering Map</a></button></td>
-                    <td><button type="button" class="btn btn-outline-danger"><a href="{% url 'job:job_map_search_heat' %}">Heat Map</a></button></td>
-                </tr>
-            </table>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-primary"><a href="{% url 'job:job_map_search' %}">Basic Map</a></button>
+                <button type="button" class="btn btn-outline-info"><a href="{% url 'job:job_map_search_cluster' %}">Clustering Map</a></button>
+                <button type="button" class="btn btn-outline-danger"><a href="{% url 'job:job_map_search_heat' %}">Heat Map</a></button>
+            </div>
     </div>
     <div class="container">
         <div class="row">

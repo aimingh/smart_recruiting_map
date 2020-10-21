@@ -56,9 +56,12 @@ class jobAPI:
         else:
             return None, None, None
 
-    def get_searchmap(self, keyword = 'AI', max_page='10', search_flag=False):
-        if search_flag==True:
-            self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
+    def get_searchmap(self, data):
+        if data['flag']==True:
+            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            if self.db.keyword.count()!=0:
+                self.db.keyword.drop()
+            self.db.keyword.insert_one(data)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
@@ -76,9 +79,12 @@ class jobAPI:
         m = m._repr_html_()
         return m
 
-    def get_searchmap_cluster(self, keyword = 'AI', max_page='10', search_flag=False):
-        if search_flag==True:
-            self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
+    def get_searchmap_cluster(self, data):
+        if data['flag']==True:
+            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            if self.db.keyword.count()!=0:
+                self.db.keyword.drop()
+            self.db.keyword.insert_one(data)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
@@ -97,9 +103,12 @@ class jobAPI:
         m = m._repr_html_()
         return m
 
-    def get_searchmap_heat(self, keyword = 'AI', max_page='10', search_flag=False):
-        if search_flag==True:
-            self.scrapping_jobkorea_search(max_page=max_page, keyword=keyword)
+    def get_searchmap_heat(self, data):
+        if data['flag']==True:
+            self.scrapping_jobkorea_search(max_page=data['max_page'], keyword=data['keyword'])
+            if self.db.keyword.count()!=0:
+                self.db.keyword.drop()
+            self.db.keyword.insert_one(data)
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]

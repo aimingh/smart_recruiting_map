@@ -5,35 +5,37 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def get_form(requests):
+    data = dict()
     if len(requests.GET) !=0:
-        keyword = requests.GET['key']
-        max_page = requests.GET['max_page']
-        flag = True
+        data['keyword'] = requests.GET['key']
+        data['max_page'] = requests.GET['max_page']
+        data['careerType'] = requests.GET['careerType']
+        data['flag'] = True
     else:
-        keyword = ''
-        max_page = ''
-        flag = False
-    return keyword, max_page, flag
+        with MongoClient('mongodb://127.0.0.1:27017') as client:
+            data = list(client.Jobdata.keyword.find())[0]
+            data['flag'] = False
+    return data
 
 def job_map_search(requests):
-    keyword, max_page, flag = get_form(requests)
+    data = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap(keyword=keyword, max_page=max_page, search_flag=flag)
-    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
+    m = job.get_searchmap(data)
+    datas = {'mountain_map':m, 'data':data}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_cluster(requests):
-    keyword, max_page, flag = get_form(requests)
+    data = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap_cluster(keyword=keyword, max_page=max_page, search_flag=flag)
-    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
+    m = job.get_searchmap_cluster(data)
+    datas = {'mountain_map':m, 'data':data}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def job_map_search_heat(requests):
-    keyword, max_page, flag = get_form(requests)
+    data = get_form(requests)
     job = jobAPI()
-    m = job.get_searchmap_heat(keyword=keyword, max_page=max_page, search_flag=flag)
-    datas = {'mountain_map':m, 'keyword':keyword, 'max_page':max_page}
+    m = job.get_searchmap_heat(data)
+    datas = {'mountain_map':m, 'data':data}
     return render(requests, 'jobMap/job_map_search.html', context=datas)
 
 def listwithmongowithpaginator(request):
