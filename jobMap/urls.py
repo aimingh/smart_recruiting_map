@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 
+app_name = 'job'
+
 urlpatterns = [
     path('job_map_search/', views.job_map_search, name ='job_map_search'),
+    path('job_map_search_cluster/', views.job_map_search_cluster, name ='job_map_search_cluster'),
+    path('job_map_search_heat/', views.job_map_search_heat, name ='job_map_search_heat'),
     path("listwithmongowithpaginator/", views.listwithmongowithpaginator),
 ]
