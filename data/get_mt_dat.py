@@ -4,8 +4,6 @@ from pymongo import MongoClient
 
 
 # --------------------------------------- for 100 mountain in Korea -----------------------------------------------------------------
-header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'} 
-
 mountain_url = "http://bac.blackyak.com/V5_challenge/default_ajax.asp?para1=114&para2=&para3=&para4=&para5=1&para6=all&_=1602831529924"
 header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'} 
 # Create your views here.  
@@ -37,8 +35,8 @@ with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
         div_info = soup_link.find('div',{'class':'mgb20'})
         info_text = str(div_info.p.text).replace('\t','').replace('\r','').replace('\n','') 
         my_client.Mountain.mountain_info.insert_one({'no':id,'name':name,'img':img_link,'info':info_text,'x':x,'y':y})
-        id+=1
         print(id)
+        id+=1
 
 ## ------------------------------------------------- for read map from naver API ---------------------------------------------------------------------
 
