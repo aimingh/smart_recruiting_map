@@ -23,5 +23,5 @@ urlpatterns = [
     path('job_map_search/', views.job_map_search, name ='job_map_search'),
     path('job_map_search_cluster/', views.job_map_search_cluster, name ='job_map_search_cluster'),
     path('job_map_search_heat/', views.job_map_search_heat, name ='job_map_search_heat'),
-    path("listwithmongowithpaginator/", views.listwithmongowithpaginator),
+    path("job_map_search_list/", views.job_map_search_list, name ='job_map_search_list'),
 ]
