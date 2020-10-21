@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 
+app_name = 'job'
+
 urlpatterns = [
     path('job_map_search/', views.job_map_search, name ='job_map_search'),
     path("listwithmongowithpaginator/", views.listwithmongowithpaginator),
