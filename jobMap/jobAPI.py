@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup
 
 class jobAPI:
     def __init__(self):
-        self.KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
-        self.headers = {"Authorization" : f"KakaoAK {self.KAKAOAPPKEY}"}
+        KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
+        self.headers = {"Authorization" : f"KakaoAK {KAKAOAPPKEY}"}
         self.client = MongoClient('mongodb://127.0.0.1:27017') 
         self.db = self.client.Jobdata
 
@@ -45,10 +45,13 @@ class jobAPI:
                 return None, None, None
             x = documents[0]['x']
             y = documents[0]['y']
-            address = documents[0]['road_address_name']
+            if documents[0]['road_address_name'] !="":
+                address = documents[0]['road_address_name']
+            else:
+                address = documents[0]['address_name']
             return address, x, y
         else:
-            return None
+            return None, None, None
 
     def get_searchmap(self, keyword = 'AI'):
         self.scrapping_jobkorea_search(max_page=10, keyword=keyword)
@@ -88,10 +91,9 @@ class jobAPI:
             if n==61:
                 print()
             keyword = quote(companylist['address'])
-            headers = {"Authorization" : f"KakaoAK {self.KAKAOAPPKEY}"}
             try:
                 curl = f"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query={keyword}"
-                res = requests.get(curl, headers = headers)
+                res = requests.get(curl, headers = self.headers)
                 if res.status_code==200:
                     documents = json.loads(res.text)['documents']
                     companylist['x'] = documents[0]['x']
@@ -99,7 +101,7 @@ class jobAPI:
                     placelist.append(companylist)
             except Exception:
                 curl = f"https://dapi.kakao.com/v2/local/search/address.json?page=1&size=10&query={keyword}"
-                res = requests.get(curl, headers = headers)
+                res = requests.get(curl, headers = self.headers)
                 if res.status_code==200:
                     documents = json.loads(res.text)['documents']
                     companylist['x'] = documents[0]['x']
