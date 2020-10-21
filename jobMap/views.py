@@ -10,8 +10,8 @@ def get_form(requests):
         max_page = requests.GET['max_page']
         flag = True
     else:
-        keyword = 'AI'
-        max_page = '10'
+        keyword = ''
+        max_page = ''
         flag = False
     return keyword, max_page, flag
 

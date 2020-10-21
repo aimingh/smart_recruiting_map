@@ -8,20 +8,34 @@
                 <table>
                     <thead>
                         <tr>    
-                            <td>search keyword</td>
-                            <td>max page of scrapping</td>
+                            <td>current keyword: {{keyword}}</td>
+                            <td>max page: {{max_page}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text", name="key"></td>
-                            <td><input type="text", name="max_page"></td>
-                            <td><input type="submit", value="Submit"></td>
+                            <div class="input-group mb-3">
+                            <td><input type="text" class="form-control" placeholder="job keyword", name="key"></td>
+                            <td><input type="text" class="form-control" placeholder="max page", name="max_page"></td>
+                            <td><input type="submit" class="btn btn-dark", value="Submit"></td>
+                            </div>
                         </tr>
+
                     </tbody>
                 </table>
             </form>
+            <tr><p></p></tr>
+            <table>
+                <tr>
+                    <td><button type="button" class="btn btn-outline-primary"><a href="{% url 'job:job_map_search' %}">Basic Map</a></button></td>
+                    <td><button type="button" class="btn btn-outline-info"><a href="{% url 'job:job_map_search_cluster' %}">Clustering Map</a></button></td>
+                    <td><button type="button" class="btn btn-outline-danger"><a href="{% url 'job:job_map_search_heat' %}">Heat Map</a></button></td>
+                </tr>
+            </table>
     </div>
     <div class="container">
         <div class="row">
