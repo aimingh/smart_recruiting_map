@@ -24,7 +24,7 @@ def paging(request, datalist, num=10):
 def mountain_map(requests):
     mt = mountainAPI()
     m = mt.get_map()
-    with MongoClient("mongodb://192.168.0.225:27017") as client:
+    with MongoClient("mongodb://192.168.0.134:8088") as client:
         db = client.Mountain
         mountain_info = list(db.mountain_info.find())
         mountainList = list(db.mountainList.find())
@@ -39,7 +39,7 @@ def view_info(request,no):
     # if request.method == 'GET' :
     #     name = request.GET.get()
 
-    with MongoClient("mongodb://192.168.0.225:27017") as my_client:
+    with MongoClient("mongodb://192.168.0.134:8088") as my_client:
         data = dict()
         mountain = list(my_client.Mountain.mountain_info.find({'no':no}))
         mountaininfo = list(my_client.Mountain.placelist.find({'no':no}))

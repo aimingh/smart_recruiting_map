@@ -14,7 +14,7 @@ def get_form(requests):
     else:
         # with MongoClient('mongodb://127.0.0.1:27017') as client:
             # data = list(client.Jobdata.keyword.find())[0]
-        with MongoClient('mongodb://192.168.0.225:27017') as client:
+        with MongoClient('mongodb://192.168.0.134:8088') as client:
             data = list(client.Jobinfo.keyword.find())[0]
             data['flag'] = False
     return data
@@ -58,7 +58,7 @@ def job_map_search_list(requests):
             job.db.keyword.drop()
         job.db.keyword.insert_one(data)
 
-    with MongoClient('mongodb://192.168.0.225:27017')  as client:
+    with MongoClient('mongodb://192.168.0.134:8088')  as client:
         Jobdata = client.Jobinfo
         contact_list = list(Jobdata.Joblist2.find())			# get Collection with find()
 
@@ -78,7 +78,7 @@ def job_map_all(requests):
 
 def listwithmongowithpaginator(request):
     data = request.GET.copy()
-    with MongoClient('mongodb://127.0.0.1:27017/')  as client:
+    with MongoClient('mongodb://192.168.0.134:8088')  as client:
         Jobdata = client.Jobdata
         contact_list = list(Jobdata.Joblist2.find())			# get Collection with find()
         data['page_obj'] = contact_list
