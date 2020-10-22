@@ -136,7 +136,7 @@ class mountainAPI:
         infolist = infolists[no-1]
         coord = [infolist['coord']['lat'], infolist['coord']['lon']]
         m = folium.Map(coord, zoom_start=10, tiles='stamenterrain')
-        info_mark = f'''<a href=info/{infolist["no"]} target="_top"><b>산이름: {infolist["name"]}</b></a><br>
+        info_mark = f'''<b>산이름: {infolist["name"]}</b><br>
                         좌표: {infolist['coord']['lat']:04f}, {infolist['coord']['lon']:04f}<br>
                         날씨: {infolist['weather'][0]['main']}<br>
                         기온: {infolist['main']['temp']}<br>
