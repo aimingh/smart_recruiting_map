@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container p-3 my-3 border">
+            <h1>Job map about total recruiting information in Worknet</h1><br>
+            <h5>Experimantal project</h5>
+            <p></p>
+            <div class="btn-group">
+                <a href="{% url 'job:job_map_all' %}" class="btn btn-outline-danger" role="button">Heat Map</a>
+            </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{mountain_map|safe}}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
