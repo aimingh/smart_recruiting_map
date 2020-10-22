@@ -119,6 +119,15 @@ class mountainAPI:
             folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
         # folium 한글 깨짐 현상 발생시 아래 패키지 설치
         # pip install git+https://github.com/python-visualization/branca.git@master
+        
+        folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
+        folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
     
@@ -137,6 +146,15 @@ class mountainAPI:
         popup = folium.Popup(popText, max_width=2650)
         icon_img = folium.features.CustomIcon('./data/greenmounticon.png', icon_size=(30,30))
         folium.Marker(location=coord, popup=popup, icon=icon_img).add_to(m)
+        
+        folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
+        folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
 

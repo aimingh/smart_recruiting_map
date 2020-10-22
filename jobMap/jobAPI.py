@@ -66,7 +66,7 @@ class jobAPI:
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
-        m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
+        m = folium.Map(lat_long, zoom_start=7, tiles='openstreetmap')
 
         for infolist in infolists:
             coord = [float(infolist['y']), float(infolist['x'])]
@@ -77,6 +77,15 @@ class jobAPI:
             popup = folium.Popup(popText, max_width=2650)
             icon =  folium.Icon(icon='building', prefix='fa') 
             folium.Marker(location=coord, popup=popup, icon=icon).add_to(m)
+        
+        folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
+        folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
 
@@ -89,7 +98,7 @@ class jobAPI:
         infolists = list(self.db.Joblist2.find())
 
         lat_long = [36, 127.4]
-        m = folium.Map(lat_long, zoom_start=7, tiles='stamenterrain')
+        m = folium.Map(lat_long, zoom_start=7, tiles='openstreetmap')
 
         marker_cluster = plugins.MarkerCluster().add_to(m)
         for infolist in infolists:
@@ -101,6 +110,15 @@ class jobAPI:
             popup = folium.Popup(popText, max_width=2650)
             icon =  folium.Icon(icon='building', prefix='fa') 
             folium.Marker(location=coord, popup=popup, icon=icon,).add_to(marker_cluster)
+        
+        folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
+        folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
 
@@ -120,6 +138,15 @@ class jobAPI:
             data.append([float(infolist['y']), float(infolist['x'])])
 
         plugins.HeatMap(data).add_to(m)
+
+        folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
+        folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
 
@@ -155,6 +182,8 @@ class jobAPI:
         self.db.alljob.insert_many(data)
 
     def get_allmap_heat(self, data):
+        print(folium.__version__)
+
         infolists = list(self.db.alljob.find())
 
         lat_long = [36, 127.4]
@@ -165,8 +194,15 @@ class jobAPI:
             data.append([float(infolist['y']), float(infolist['x'])])
 
         plugins.HeatMap(data, max_val=5.0, radius=18, blur=15).add_to(m)
+
         folium.TileLayer('openstreetmap').add_to(m)
+        folium.TileLayer('Stamenterrain').add_to(m)
+        folium.TileLayer('stamentoner').add_to(m)
+        folium.TileLayer('Stamenwatercolor').add_to(m)
+        folium.TileLayer('cartodbpositron').add_to(m)
+        folium.TileLayer('cartodbdark_matter').add_to(m)
         folium.LayerControl().add_to(m)
+        
         m = m._repr_html_()
         return m
 
