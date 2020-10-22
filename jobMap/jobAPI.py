@@ -182,8 +182,6 @@ class jobAPI:
         self.db.alljob.insert_many(data)
 
     def get_allmap_heat(self, data):
-        print(folium.__version__)
-
         infolists = list(self.db.alljob.find())
 
         lat_long = [36, 127.4]
