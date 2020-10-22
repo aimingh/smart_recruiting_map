@@ -134,7 +134,7 @@ Moutain Map 은 Blackyak과 산림청에서 지정한 100대 명산에 대한 �
 <br>
 사진을 클릭하면 영상이 나옵니다.
 
-[![job korea](hhttps://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-22%2014-12-23.png)](https://www.youtube.com/watch?v=lbxM-8EEdiA)
+[![job korea](https://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-22%2014-12-23.png)](https://www.youtube.com/watch?v=lbxM-8EEdiA)
 
 <br>
 
