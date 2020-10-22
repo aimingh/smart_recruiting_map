@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load static from staticfiles %}
 <!-- Header -->
-<header class="w3-container w3-light-gray w3-center" style="padding:128px 16px">
-    <h1 class="w3-margin w3-jumbo">Project</h1>
-    <h2 class="w3-margin w3-jumbo">Smart Recruiting Map</h2>
-    <p class="w3-xlarge">blank</p>
+<header class="w3-container w3-light-gray w3-center" style="padding:128px 16px; background: url('https://image.freepik.com/free-vector/sunset-mountains-landscape-with-gradient-colors_23-2148266711.jpg') no-repeat center center; background-size :cover;">
+   <div class="container"> 
+        <div class="row">
+            <div class="col-lg-12 w3-animate-zoom"> 
+                    <h1 class="w3-margin w3-jumbo"> Project </h1>
+                    <h2 class="w3-margin w3-jumbo"> Smart Recruiting Map </h2>
+                    <p class="w3-large">위 오 동 맹</p>
+            </div>
+        </div>
+    </div> 
 </header>
 
 <!-- First Grid -->
@@ -13,18 +19,79 @@
     <div class="w3-content">
         <div class="w3-twothird">
             <ul class="w3-ul">
-                <li class="w3-hover-red"><h1>Page discription</h1></li>
-                <li class="w3-hover-red">
-                    <h5 >1.Mountain Map</h5>
-                    <p> We show mountain</p>
-                </li>
-                <li class="w3-hover-red">
-                    <h5 >2.Recruiting Map</h5>
-                    <p >We show map</p>
-                </li>
+                <li> <h1>Page discription</h1></li>
+                    <li class="w3-hover-red">
+                        <a href="/mountain/mountain_map/" style="color: black; text-decoration: none;">
+                            <h4 >1. Mountain Map</h4>
+                            <br>
+                            <p style="margin-left: 1cm;">Blackyak와 산림청이 지정한 100대 명산지도를 아이콘과 함께 볼수 있습니다. <br>
+                              아이콘 클릭시 팝업창으로 부터 오늘의 날씨와 위치정보를 볼 수 있고, 상세정보 링크를 통해 설명과 사진을 볼 수 있습니다.
+                            </p>
+                            
+                        </a>
+                    </li>
+                    <li class="w3-hover-red">
+                        <a href="/job/job_map_search/" style="color: black; text-decoration: none;">
+                            <h4>2. Recruiting Map</h4>
+                            <br>
+                            <p style="margin-left: 1cm;">구직 정보를 맵에 표기한 페이지입니다. <br>
+                              구직정보가 hitmap 또는 Clusturing 하여 표기 할 수 있습니다. <br>
+                              검색을 통해 원하는 곳에 구할 수 있는 직장이 있는지에 대한 여부를 확인하세요!
+                            
+                            </p>
+              
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
+</div>
+
+<div class="container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <ul>
+          <li><h2> Team Info</h2></li>
+          <br>
+          <div class="media border p-3">
+              <img src="{% static '/img/img_avatar3.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+              <div class="media-body">
+                <h4>조 준 희 </h4><span style="color: orangered;"> 조 장 </span>
+                <ul>
+                <li>html 페이지 작성 및 데이터 정리</li>            
+                <li>각종 기능 함수 구현</li>  
+                <li> folium 맵 작성 및 정보 표기</li>
+              </ul>
+                
+              </div>
+            </div>
+            <div class="media border p-3">
+              <img src="{% static '/img/img_avatar3.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+              <div class="media-body">
+                <h4>조 국 현 </h4>
+                <span style="color: orangered;">팀원 1 </span>
+                <ul>
+                  <li>데이터 스크랩핑</li>            
+                  <li>각종 기능 함수 구현</li>  
+                </ul>    
+                
+              </div>
+            </div>
+            <div class="media border p-3">
+              <img id='img1' src="{% static '/img/img_avatar3.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+              <div class="media-body">
+                <h4>손 상 훈 </h4>
+                <span style="color: orangered;">팀원 1 </span>
+                <ul>
+                  <li>html 페이지 꾸밈 작업</li>            
+                  <li>html 페이징 작업</li>  
+                </ul>
+                
+              </div>
+            </div>
+      </ul>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
