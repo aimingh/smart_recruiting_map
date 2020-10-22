@@ -69,6 +69,13 @@ def job_map_search_list(requests):
 
     return render(requests, 'jobMap/job_map_search_list.html', context=data)
 
+def job_map_all(requests):
+    data = get_form(requests)
+    job = jobAPI()
+    m = job.get_allmap_heat(data)
+    datas = {'mountain_map':m, 'data':data}
+    return render(requests, 'jobMap/job_map_all.html', context=datas)
+
 def listwithmongowithpaginator(request):
     data = request.GET.copy()
     with MongoClient('mongodb://127.0.0.1:27017/')  as client:
