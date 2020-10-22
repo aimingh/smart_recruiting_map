@@ -132,6 +132,7 @@ Moutain Map 은 Blackyak과 산림청에서 지정한 100대 명산에 대한 �
 아래 사진은 처음 페이지를 이동했을 때의 모습을 보여주며 사진을 클릭시 어떻게 검색하고 들어가는지 알 수 있는 영상으로 보내줍니다.
 
 <br>
+사진을 클릭하면 영상이 나옵니다.
 
 [![job korea](hhttps://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-22%2014-12-23.png)](https://www.youtube.com/watch?v=lbxM-8EEdiA)
 
@@ -140,7 +141,43 @@ Moutain Map 은 Blackyak과 산림청에서 지정한 100대 명산에 대한 �
     영상과 같이 경력 / 키워드 / 페이지 수를 결정 후 submit 버튼을 눌러 검색을 합니다.
     검색이 완료되면 구인정보가 등록된 회사의 위치를 맵으로 표기해주며 list 버튼을 누르면 이를 리스트로 정리한 페이지로 이동이 가능합니다.
     맵의 하단에 해당 구직 정보에 대한 리스트를 보여주고, 리스트를 클릭하면 해당 페이지로 이동이 가능합니다.
+    리스트 사진은 아래와 같습니다.
+
+<img src='https://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-22%2014-13-30.png'>
 
 
-또한 나와 있는 맵의 형태를 바꿀 수 있는 버튼이 있습니다. 현재는 2가지가 준비되어 있으며 
+또한 검색한 데이터가 나와 있는 맵의 형태를 Clusting Map 과 Heat Map 이 두 버튼을 통해 바꿀 수 있습니다. 
+
+
+a. Cluster map
+
+아래에는 Cluster 형 맵을 나타냈습니다.
+정보가 많다면 아이콘이 많이 겹칠 수 가 있는데, 이를 방지하기 위한 아이콘 표기형 맵입니다.
+일정 구역내에 아이콘이 겹친다면 겹치는 숫자를 표기하여 아이콘에 나타내줍니다.
+
+사진을 클릭하면 영상이 나옵니다.
+
+[![job korea](https://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/cluster.png)](https://www.youtube.com/watch?v=CZDYkJnZGT8)
+
+b. Heat Map 
+
+아래사진은 구직정보를 담은 맵을 hitmap 으로 나타낸 사진입니다.
+구직정보가 주로 몰린곳을 시각적으로 확인이 가능합니다.
+이 또한 확대를 통해 몰린 지역을 상세하게 볼 수 있습니다.
+
+<img src='https://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/hitmap_job.png'>
+
+
+### 3. Worknet 구인구직 hitmap 
+
+이 페이지는 worknet 에 등록된 대기업,중소기업,강소기업,공기업의 구인정보를 담은 데이터 베이스로부터 
+위치정보를 얻어와서 현재 어느지역이 구인정보가 몰려있는지 확인 가능한 페이지입니다.
+현재 데이터가 대략 5500개 정도 존재합니다.
+
+이 역시 아래 사진과 같이 확대해서 확인이 가능합니다.
+
+[![job korea](https://github.com/blackcoke/smart_recruiting_map/blob/master/pictures/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-22%2014-13-10.png)](https://www.youtube.com/watch?v=hpPhuBngHyk)
+
+
+
 
