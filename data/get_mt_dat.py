@@ -13,7 +13,7 @@ res = requests.get(url=mountain_url,headers=header)
 soup = BeautifulSoup(res.content,features='lxml')    
 div_point = soup.find_all('div',{'class':'text'})
 
-with  MongoClient("mongodb://127.0.0.1:27017") as my_client:
+with  MongoClient("mongodb://192.168.0.225:27017") as my_client:
     my_client.Mountain.mountain_info.drop()
     id = 1
     for point in div_point:

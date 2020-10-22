@@ -77,8 +77,8 @@ def read_jobkorea():
     i = 1
     while  i < num_job :
         with MongoClient("mongodb://127.0.0.1:27017/") as myclient :
-            if myclient.Jobdata.Joblist.count()!=0:
-                myclient.Jobdata.Joblist.drop()
+            # if myclient.Jobdata.Joblist.count()!=0:
+            #     myclient.Jobdata.Joblist.drop()
             site_page = driver.find_elements_by_css_selector('#dvGIPaging > div > ul > li')
             _ = driver.find_element_by_css_selector('#dvGIPaging > div > p > a')
             _ = read_data(driver)

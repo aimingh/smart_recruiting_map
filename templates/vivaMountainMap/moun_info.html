@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class='container'>
+<div class='container jumbotron border'>
     <table>
+        <colgroup>
+            <col width="40%">
+            <col width="5%">
+            <col width="*%">
+        </colgroup>
         <tr>
-            <td style="width: 50%;">
+            <td>
                 <div>
-                    <img src={{mountain.0.img}} style='margin-left:5%; margin-top: 20%; width:300px; height:300px'>
+                    <img class="img-fluid" src={{mountain.0.img}}>
                 </div>
             </td>
-
-            <td style="width: 50%;">
-                <div class='jumbotron' style="margin-left: 10%; margin-top: 12%;width:800px; height:300px"> 
+            <td></td>
+            <td>
+                <div class=''> 
                     <div class="container">
                     <h2>
                         {{mountain.0.name}}
@@ -23,17 +28,22 @@
                         {% endif %}
                     </p>
                     <li>GPS 좌표 : {{mountain.0.x}} <span> | </span> {{mountain.0.y}}</li>
+                    <li>주소 : {{mountaininfo.0.address_name}}</li>
                 </div>
                 </div>           
             </td>            
         </tr>
     </table>
+    <div class="container"><a href="{% url 'mountain:mountain_map' %}" class='btn btn-dark float-right' role="button">목록</a></div>
+    
 </div>
 <div class="container">
     <div class="row">
         <!-- <div class="col-8"> -->
         <div class="col">
-            {{mountain_map|safe}}
+            <div class="container">
+                {{mountain_map|safe}}
+            </div>
         </div>
     </div>
 </div>
