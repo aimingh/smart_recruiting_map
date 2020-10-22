@@ -51,3 +51,15 @@
               ㄴ  Job/     ㅡ job_map_search/
                            ㄴ job_map_all/
 
+
+<br>
+<br>
+이미지로는 다음과 같습니다
+
+<img src='pictures/스토리보드.png'>
+
+메인 페이지로부터 왼쪽은 100대 명산을 위한 App 이며 오른쪽은 구직정보를 기반으로 한 map 을 위한 APP 입니다.
+
+공통으로는 Navivar 를 통해 mainpage, /moutain/moutain_mapp, /Job/job_map_search, /Job/job_mal_all 
+
+까지 접속이 가능합니다.
