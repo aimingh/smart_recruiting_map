@@ -7,7 +7,7 @@ class mountainAPI:
     def __init__(self):
         self.KAKAOAPPKEY = 'e872972db3d44f41a166d59a90196511'
         self.openweather_APPKEY = '62bc63d111fc64124ac69bf2ad6b36f8'
-        self.client = MongoClient('mongodb://192.168.0.225:27017') 
+        self.client = MongoClient('mongodb://192.168.0.134:8088') 
         self.db = self.client.Mountain
 
     def __del__(self):
