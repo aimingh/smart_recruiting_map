@@ -109,8 +109,8 @@ Moutain Map 은 Blackyak과 산림청에서 지정한 100대 명산에 대한 �
 
 <br>
 <br>
-<img src='pictures/스크린샷, 2020-10-22 14-12-20.png'>
+<img src=''>
 
-[![view moutain](https://i.ytimg.com/vi/hpPhuBngHyk/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLB8NzruefyOA4CVN4Ak0izb5cKZtg)](https://www.youtube.com/watch?v=WThlCfFKSes) 
+[![view moutain](pictures/스크린샷, 2020-10-22 14-12-20.png)](https://www.youtube.com/watch?v=WThlCfFKSes) 
 
 
